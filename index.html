@@ -85,10 +85,10 @@
     const X = Lucide.X || '❌';
     const ArrowLeft = Lucide.ArrowLeft || '←';
     const Bell = Lucide.Bell || '🔔';
+    // [다크모드 추가]
     const Sun = Lucide.Sun || '☼';
     const Moon = Lucide.Moon || '☽';
 
-//여기를 수정하세요
     const hardcodedFirebaseConfig = {
     apiKey: "AIzaSyBh77Z59KhlyiR4ipN6S7_atujyh_ROWsE",
   authDomain: "semi-twt.firebaseapp.com",
@@ -101,6 +101,7 @@
     
     const ACTIVE_USER_STORAGE_KEY = 'miniTwitterActiveUser';
     const LAST_CHECKED_NOTIFICATIONS_KEY = 'miniTwitterLastCheckedNotifications';
+    // [다크모드 추가] 로컬 스토리지 키
     const DARK_MODE_STORAGE_KEY = 'miniTwitterDarkMode';
 
     let firebaseConfig, initialAuthToken, canvasAppId;
@@ -124,29 +125,50 @@
 
     const getInitialActiveUser = () => localStorage.getItem(ACTIVE_USER_STORAGE_KEY);
     
-//그룹과 인원추가를 만지고 싶다면 여기를 수정하세요
 const MOCK_GROUPS = [
-    { id: 'group1', name: '에이 팀', icon: 'A' },
-    { id: 'group2', name: '비 팀', icon: 'B' },
-    { id: 'group3', name: '씨 팀', icon: 'C' },
-    { id: 'group4', name: '디 팀', icon: 'D' },
-    { id: 'group5', name: '이 팀', icon: 'E' },
+    { id: 'dev', name: '에이 팀', icon: 'A' },
+    { id: 'design', name: '비 팀', icon: 'B' },
+    { id: 'marketing', name: '씨 팀', icon: 'C' },
+    { id: 'finance', name: '디 팀', icon: 'D' },
+    { id: 'financ', name: '이 팀', icon: 'E' },
 ];
 
 const MOCK_USERS = [
-    { uid: 'user-001', name: '유저 1', handle: 'user1', color: 'bg-gray-500', profile: '1', group: 'group1' },
-    { uid: 'user-002', name: '유저 2', handle: 'user2', color: 'bg-gray-500', profile: '2', group: 'group1' },
-    { uid: 'user-003', name: '유저 3', handle: 'user3', color: 'bg-gray-500', profile: '3', group: 'group2' },
-    { uid: 'user-004', name: '유저 4', handle: 'user4', color: 'bg-gray-500', profile: '4', group: 'group2' },
-    { uid: 'user-005', name: '유저 5', handle: 'user5', color: 'bg-gray-500', profile: '5', group: 'group3' },
-    { uid: 'user-006', name: '유저 6', handle: 'user6', color: 'bg-gray-500', profile: '6', group: 'group3' },
-    { uid: 'user-007', name: '유저 7', handle: 'user7', color: 'bg-gray-500', profile: '7', group: 'group4' },
-    { uid: 'user-008', name: '유저 8', handle: 'user8', color: 'bg-gray-500', profile: '8', group: 'group4' },
-    { uid: 'user-009', name: '유저 9', handle: 'user9', color: 'bg-gray-500', profile: '9', group: 'group5' },
-    { uid: 'user-010', name: '유저 10', handle: 'user10', color: 'bg-gray-500', profile: '10', group: 'group5' },
+    { uid: 'user-001', name: '유저 1', handle: 'user1', color: 'bg-gray-500', profile: '1', group: 'dev' },
+    { uid: 'user-002', name: '유저 2', handle: 'user2', color: 'bg-gray-500', profile: '2', group: 'dev' },
+    { uid: 'user-003', name: '유저 3', handle: 'user3', color: 'bg-gray-500', profile: '3', group: 'dev' },
+    { uid: 'user-004', name: '유저 4', handle: 'user4', color: 'bg-gray-500', profile: '4', group: 'dev' },
+    { uid: 'user-005', name: '유저 5', handle: 'user5', color: 'bg-gray-500', profile: '5', group: 'dev' },
+    { uid: 'user-006', name: '유저 6', handle: 'user6', color: 'bg-gray-500', profile: '6', group: 'dev' },
+    { uid: 'user-007', name: '유저 7', handle: 'user7', color: 'bg-gray-500', profile: '7', group: 'dev' },
+    { uid: 'user-008', name: '유저 8', handle: 'user8', color: 'bg-gray-500', profile: '8', group: 'dev' },
+    { uid: 'user-009', name: '유저 9', handle: 'user9', color: 'bg-gray-500', profile: '9', group: 'dev' },
+    { uid: 'user-010', name: '유저 10', handle: 'user10', color: 'bg-gray-500', profile: '10', group: 'dev' },
+    { uid: 'user-011', name: '유저 11', handle: 'user11', color: 'bg-gray-500', profile: '11', group: 'dev' },
+    { uid: 'user-012', name: '유저 12', handle: 'user12', color: 'bg-gray-500', profile: '12', group: 'dev' },
+    { uid: 'user-013', name: '유저 13', handle: 'user13', color: 'bg-gray-500', profile: '13', group: 'design' },
+    { uid: 'user-014', name: '유저 14', handle: 'user14', color: 'bg-gray-500', profile: '14', group: 'design' },
+    { uid: 'user-015', name: '유저 15', handle: 'user15', color: 'bg-gray-500', profile: '15', group: 'design' },
+    { uid: 'user-016', name: '유저 16', handle: 'user16', color: 'bg-gray-500', profile: '16', group: 'marketing' },
+    { uid: 'user-017', name: '유저 17', handle: 'user17', color: 'bg-gray-500', profile: '17', group: 'marketing' },
+    { uid: 'user-018', name: '유저 18', handle: 'user18', color: 'bg-gray-500', profile: '18', group: 'marketing' },
+    { uid: 'user-019', name: '유저 19', handle: 'user19', color: 'bg-gray-500', profile: '19', group: 'marketing' },
+    { uid: 'user-020', name: '유저 20', handle: 'user20', color: 'bg-gray-500', profile: '20', group: 'marketing' },
+    { uid: 'user-021', name: '유저 21', handle: 'user21', color: 'bg-gray-500', profile: '21', group: 'marketing' },
+    { uid: 'user-022', name: '유저 22', handle: 'user22', color: 'bg-gray-500', profile: '22', group: 'marketing' },
+    { uid: 'user-023', name: '유저 23', handle: 'user23', color: 'bg-gray-500', profile: '23', group: 'finance' },
+    { uid: 'user-024', name: '유저 24', handle: 'user24', color: 'bg-gray-500', profile: '24', group: 'finance' },
+    { uid: 'user-025', name: '유저 25', handle: 'user25', color: 'bg-gray-500', profile: '25', group: 'finance' },
+    { uid: 'user-026', name: '유저 26', handle: 'user26', color: 'bg-gray-500', profile: '26', group: 'finance' },
+    { uid: 'user-027', name: '유저 27', handle: 'user27', color: 'bg-gray-500', profile: '27', group: 'finance' },
+    { uid: 'user-028', name: '유저 28', handle: 'user28', color: 'bg-gray-500', profile: '28', group: 'finance' },
+    { uid: 'user-029', name: '유저 29', handle: 'user29', color: 'bg-gray-500', profile: '29', group: 'finance' },
+    { uid: 'user-030', name: '유저 30', handle: 'user30', color: 'bg-gray-500', profile: '30', group: 'financ' },
+    { uid: 'user-031', name: '유저 31', handle: 'user31', color: 'bg-gray-500', profile: '31', group: 'financ' },
+    { uid: 'user-032', name: '유저 32', handle: 'user32', color: 'bg-gray-500', profile: '32', group: 'financ' },
 ];
     
-    const EXAMPLE_IMAGE_URL = 'https://i.imgur.com/KDTgHmT.png;
+    const EXAMPLE_IMAGE_URL = 'https://i.imgur.com/PPzkDE7.png';
     
     const VIEW_OPTIONS = [
         { id: 'timeline', name: '타임라인', icon: Home, emptyMessage: '아직 게시물이 없습니다. 첫 번째 트윗을 작성해 보세요!' },
@@ -1968,9 +1990,9 @@ const App = () => {
         };
 
         return (
-            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 font-sans antialiased pt-[70px]"> 
+            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 font-sans antialiased pt-[57px]"> 
                 
-                <div className="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+                <div className="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700">
                     <div className="w-full max-w-xl md:w-[576px] mx-auto p-3 flex justify-between items-center"> 
                         <button
                             onClick={toggleProfileSelector}
@@ -2392,6 +2414,3 @@ const App = () => {
 
 </body>
 </html>
-
-
-
